@@ -1,6 +1,9 @@
 package tree
 
-import "testing"
+import (
+    "fmt"
+    "testing"
+)
 
 var g Tree
 
@@ -47,15 +50,52 @@ func fillTree() {
 
 func TestAdd(t *testing.T) {
     fillTree()
-    //g.String()
 }
 
 func TestTree_DfsArray(t *testing.T) {
     fillTree()
-    g.DfsArray()
+    g.DfsArray(func(item Item) {
+        fmt.Printf("DFS Array visiting... %v\n", item)
+    })
+}
+
+func TestTree_DfsList(t *testing.T) {
+    fillTree()
+    g.DfsList(func(item Item) {
+        fmt.Printf("DFS List visiting... %v\n", item)
+    })
 }
 
 func TestTree_BfsArray(t *testing.T) {
     fillTree()
-    g.BfsArray()
+    g.BfsList(func(item Item) {
+        fmt.Printf("BFS Array visiting... %v\n", item)
+    })
+}
+
+func TestTree_BfsList(t *testing.T) {
+    fillTree()
+    g.BfsList(func(item Item) {
+        fmt.Printf("BFS LIST visiting... %v\n", item)
+    })
+}
+
+func BenchmarkTree_BfsList(b *testing.B) {
+    fillTree()
+    g.BfsList(nil)
+}
+
+func BenchmarkTree_BfsArray(b *testing.B) {
+    fillTree()
+    g.BfsArray(nil)
+}
+
+func BenchmarkTree_DfsArray(b *testing.B) {
+    fillTree()
+    g.DfsArray(nil)
+}
+
+func BenchmarkTree_DfsList(b *testing.B) {
+    fillTree()
+    g.DfsList(nil)
 }

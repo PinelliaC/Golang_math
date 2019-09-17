@@ -7,8 +7,6 @@
 
 package tree
 
-import "fmt"
-
 type MyQueue struct {
     Items []Tree
 }
@@ -32,7 +30,7 @@ func (q *MyQueue) IsEmpty() bool {
     return len(q.Items) == 0
 }
 
-func (t *Tree) BfsArray() {
+func (t *Tree) BfsArray(f func(item Item)) {
     queue := MyQueue{}
     queue.New()
     queue.enqueue(*t)
@@ -46,6 +44,8 @@ func (t *Tree) BfsArray() {
         for i := 0; i < len(near); i++ {
             queue.enqueue(*near[i])
         }
-        fmt.Printf("BFS visiting... %v\n", node.Value)
+        if f != nil {
+            f(node.Value)
+        }
     }
 }

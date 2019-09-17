@@ -1,7 +1,5 @@
 package tree
 
-import "fmt"
-
 type MyStack struct {
     Items []Tree
 }
@@ -30,7 +28,7 @@ func (n *MyStack) IsEmpty() bool {
 }
 
 // DfsArray -> Depth-first-search 深度优先搜索
-func (t *Tree) DfsArray() {
+func (t *Tree) DfsArray(f func(item Item)) {
     stack := MyStack{}
     stack.New()
     stack.push(*t)
@@ -44,6 +42,8 @@ func (t *Tree) DfsArray() {
         for i := len(near) - 1; i >= 0; i-- {
             stack.push(*near[i])
         }
-        fmt.Printf("DFS visiting... %v\n", node.Value)
+        if f != nil {
+            f(node.Value)
+        }
     }
 }
